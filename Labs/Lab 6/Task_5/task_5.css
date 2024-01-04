@@ -1,0 +1,81 @@
+.container {
+    background-color: rgba(0, 0, 0, 0.45);
+    height: 1000px;
+    width: 1000px;
+}
+
+.black-square {
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    position: relative;
+    left: 50px;
+    z-index: 4;
+    padding: 5px
+}
+
+.black-square span {
+    color: rgba(255, 255, 255, 0.6);
+    position: relative;
+    font-family: Verdana, serif;
+    font-size: 25px;
+    top: -30px;
+}
+
+.cloud-img img{
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.cloud-img {
+    height: 100px;
+    width: 140px;
+    position: relative;
+    top: 10px;
+    left: 10px;
+    z-index: 6;
+}
+
+.white-square {
+    background-color: rgba(255, 255, 255, 0.47);
+    position: relative;
+    left: 100px;
+    top: -20px;
+    width: 100px;
+    box-shadow: rgba(0, 0, 0, 0.21) 5px 3px;
+    height: 50px;
+    padding: 5px;
+}
+
+.days {
+    margin-right: 15px;
+    float: left;
+    font-family: Verdana, serif;
+    font-size: 8px;
+    position: relative;
+    top: 20px;
+    color: rgba(0, 0, 0, 0.53);
+}
+
+.temperatures {
+    font-family: Verdana, serif;
+    font-size: 8.5px;
+    position: relative;
+    top: 20px;
+}
+
+.material-icons {
+    background-color: rgba(255, 255, 255, 0.42);
+    width: 25px;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    left: 25px;
+    top: 60px;
+    z-index: 5;
+}
+
+.arrow_forward {
+    left: 21px;
+}

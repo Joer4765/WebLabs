@@ -1,0 +1,72 @@
+
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    padding: 20px;
+}
+
+fieldset {
+    border: 2px solid #0073e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+legend {
+    font-size: 20px;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+input[type="radio"],
+input[type="checkbox"],
+textarea,
+select,
+datalist,
+input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    background-color: #0073e6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+input[type="reset"] {
+    background-color: #ccc;
+    color: #333;
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #0053a1;
+}
+
+select[multiple] {
+    height: auto;
+}
