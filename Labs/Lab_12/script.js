@@ -67,7 +67,7 @@ console.log(`In this semester you did: ${grade_one_hundred_to_words(100)}`);
 
 // Two
 function season_by_month_if_else(month) {
-    if (month >= 12 || month <= 2) {
+    if (month === 12 || month <= 2) {
         return "Winter";
     } else if (month >= 3 && month <= 5) {
         return "Spring";
