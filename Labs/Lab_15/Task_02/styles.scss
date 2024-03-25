@@ -1,0 +1,25 @@
+$traffic_light_turned_off: url('resources/traffic-light-dark.png') no-repeat center center;
+//$traffic_light_red
+//$traffic_light_yellow
+//$traffic_light_green
+
+body {
+  width: 1140px;
+  margin: 50px auto;
+}
+
+.traffic-light {
+  width: 200px;
+  height: 500px;
+  cursor: pointer;
+  background: $traffic_light_turned_off;
+  background-size: contain;
+}
+
+#toggleButton {
+  margin-top: 10px;
+}
+
+#sleepButton {
+  margin-top: 10px;
+}

@@ -1,0 +1,45 @@
+body {
+  width: 1140px;
+  margin: 50px auto;
+}
+
+.lamp {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.lamp.earth-lamp {
+  background: url("resources/earth-light-bulb-turned-off.png") no-repeat center center;
+  background-size: contain;
+}
+
+.lamp.earth-lamp.on {
+  background: url("resources/earth-light-bulb-turned-on.png") no-repeat center center;
+  background-size: contain;
+}
+
+.lamp.normal-lamp {
+  background: url("resources/normal-light-bulb-turned-off.png") no-repeat center center;
+  background-size: contain;
+}
+
+.lamp.normal-lamp.on {
+  background: url("resources/normal-light-bulb-turned-on.png") no-repeat center center;
+  background-size: contain;
+}
+
+.lamp.normal-lamp.dimmed {
+  background: url("resources/normal-light-bulb-dimmed.png") no-repeat center center;
+  background-size: contain;
+}
+
+#toggleButton {
+  margin-top: 10px;
+}
+
+#sleepButton {
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=styles.css.map */
