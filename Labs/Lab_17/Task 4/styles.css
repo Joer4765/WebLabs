@@ -1,0 +1,21 @@
+.tab-content {
+  display: none;
+  transition: opacity 0.5s;
+}
+
+.tab-content.visible {
+  display: block;
+}
+
+button.active {
+  background-color: #f1f1f1;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 0 auto;
+  max-width: 80rem;
+  padding: 20px;
+}
+
+/*# sourceMappingURL=styles.css.map */
