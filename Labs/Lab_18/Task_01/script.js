@@ -118,9 +118,13 @@ function checkMatch() {
         scoreDisplay.textContent = `Score: ${matchedPairs}`;
         flippedCards = [];
 
+        // if (matchedPairs === gridSize * gridSize / 2) {
+        //     clearInterval(timer);
+        //     alert(`You won! Time: ${formatTime(time - timeLeft)}`);
+        // }
         if (matchedPairs === gridSize * gridSize / 2) {
             clearInterval(timer);
-            alert(`You won! Time: ${formatTime(time - timeLeft)}`);
+            endTurn();
         }
     } else {
         setTimeout(() => {
@@ -129,8 +133,37 @@ function checkMatch() {
             flippedCards = [];
         }, 1000);
         if (playerMode === 2) {
-            currentPlayer = currentPlayer === 1 ? 2 : 1;
+            setTimeout(() => {
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+                updateScoreDisplay();
+                if (currentPlayer === 2) {
+                    alert(`${player2Name}'s turn!`);
+                }
+            }, 1000);
         }
+    }
+}
+
+// Start a new round
+function startRound() {
+    if (playerMode === 2) {
+        alert(`${currentPlayer === 1 ? player1Name : player2Name}'s turn!`);
+    }
+    initGame();
+}
+
+// End turn for current player
+function endTurn() {
+    alert(`${currentPlayer === 1 ? player1Name : player2Name} has finished their turn!`);
+    if (playerMode === 2) {
+        currentPlayer = currentPlayer === 1 ? 2 : 1;
+        if (currentPlayer === 1) {
+            endRound();
+        } else {
+            startRound();
+        }
+    } else {
+        endRound();
     }
 }
 
@@ -138,7 +171,8 @@ function checkMatch() {
 function endRound() {
     if (currentRound < totalRounds) {
         currentRound++;
-        initGame();
+        currentPlayer = 1;
+        startRound();
     } else {
         endGame();
     }
@@ -147,11 +181,19 @@ function endRound() {
 // End game and show winner
 function endGame() {
     clearInterval(timer);
-    let winner = player1Score > player2Score ? player1Name : player2Name;
-    if (player1Score === player2Score) {
-        winner = 'It\'s a tie!';
+    let winner;
+    if (playerMode === 1) {
+        winner = `${player1Name} finished with a score of ${player1Score}`;
+    } else {
+        if (player1Score > player2Score) {
+            winner = `${player1Name} wins with a score of ${player1Score} to ${player2Score}`;
+        } else if (player2Score > player1Score) {
+            winner = `${player2Name} wins with a score of ${player2Score} to ${player1Score}`;
+        } else {
+            winner = `It's a tie! Both players scored ${player1Score}`;
+        }
     }
-    alert(`Game over! Winner: ${winner}\nPlayer 1 Score: ${player1Score}\nPlayer 2 Score: ${player2Score}`);
+    alert(`Game over! ${winner}`);
 }
 
 // Update score display
