@@ -7,6 +7,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="player-settings">
+    <label for="player-mode">Players:</label>
+    <select id="player-mode">
+        <option value="1">1 Player</option>
+        <option value="2">2 Players</option>
+    </select>
+    <div id="player1-name-input">
+        <label for="player1-name">Player 1 Name:</label>
+        <input type="text" id="player1-name" placeholder="Enter name">
+    </div>
+    <div id="player2-name-input" style="display: none;">
+        <label for="player2-name">Player 2 Name:</label>
+        <input type="text" id="player2-name" placeholder="Enter name">
+    </div>
+    <label for="rounds">Rounds:</label>
+    <select id="rounds">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+</div>
 <div class="game-settings">
     <label for="grid-size">Grid Size:</label>
     <select id="grid-size">

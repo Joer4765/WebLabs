@@ -5,6 +5,11 @@ const newGameButton = document.getElementById('new-game');
 const startGameButton = document.getElementById('start-game');
 const timerDisplay = document.getElementById('timer');
 const scoreDisplay = document.getElementById('score');
+const playerModeSelect = document.getElementById('player-mode');
+const player1NameInput = document.getElementById('player1-name');
+const player2NameInput = document.getElementById('player2-name');
+const roundsSelect = document.getElementById('rounds');
+const player2NameInputDiv = document.getElementById('player2-name-input');
 
 let gridSize = 4;
 let difficulty = 'easy';
@@ -14,6 +19,32 @@ let matchedPairs = 0;
 let timer;
 let timeLeft;
 let time;
+let playerMode = 1;
+let player1Name = 'Player 1';
+let player2Name = 'Player 2';
+let currentRound = 1;
+let totalRounds = 1;
+let player1Score = 0;
+let player2Score = 0;
+let currentPlayer = 1;
+
+// Update player mode
+playerModeSelect.addEventListener('change', function() {
+    playerMode = parseInt(this.value);
+    player2NameInputDiv.style.display = playerMode === 2 ? 'block' : 'none';
+});
+
+// Start a new game with updated settings
+function startGameWithSettings() {
+    player1Name = player1NameInput.value || 'Player 1';
+    player2Name = player2NameInput.value || 'Player 2';
+    totalRounds = parseInt(roundsSelect.value);
+    currentRound = 1;
+    player1Score = 0;
+    player2Score = 0;
+    currentPlayer = 1;
+    startGame();
+}
 
 // Initialize game
 function initGame() {
@@ -74,6 +105,15 @@ function checkMatch() {
     const [card1, card2] = flippedCards;
 
     if (card1.dataset.id === card2.dataset.id) {
+        if (playerMode === 2) {
+            if (currentPlayer === 1) {
+                player1Score++;
+            } else {
+                player2Score++;
+            }
+            updateScoreDisplay();
+        }
+
         matchedPairs++;
         scoreDisplay.textContent = `Score: ${matchedPairs}`;
         flippedCards = [];
@@ -88,7 +128,35 @@ function checkMatch() {
             card2.classList.remove('flipped');
             flippedCards = [];
         }, 1000);
+        if (playerMode === 2) {
+            currentPlayer = currentPlayer === 1 ? 2 : 1;
+        }
     }
+}
+
+// End round
+function endRound() {
+    if (currentRound < totalRounds) {
+        currentRound++;
+        initGame();
+    } else {
+        endGame();
+    }
+}
+
+// End game and show winner
+function endGame() {
+    clearInterval(timer);
+    let winner = player1Score > player2Score ? player1Name : player2Name;
+    if (player1Score === player2Score) {
+        winner = 'It\'s a tie!';
+    }
+    alert(`Game over! Winner: ${winner}\nPlayer 1 Score: ${player1Score}\nPlayer 2 Score: ${player2Score}`);
+}
+
+// Update score display
+function updateScoreDisplay() {
+    scoreDisplay.textContent = `Player 1: ${player1Score} - Player 2: ${player2Score}`;
 }
 
 // Start a new game
@@ -135,7 +203,8 @@ function formatTime(seconds) {
 
 // Event listeners
 newGameButton.addEventListener('click', initGame);
-startGameButton.addEventListener('click', startGame);
+// startGameButton.addEventListener('click', startGame);
+startGameButton.addEventListener('click', startGameWithSettings);
 
 // Initialize game on page load
 initGame();
