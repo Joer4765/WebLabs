@@ -18,3 +18,32 @@ let swiper = new Swiper(".mySwiper", {
         pauseOnMouseEnter: true,
     },
 });
+
+document.getElementById('swiper-config-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get form values
+    const transitionDuration = document.getElementById('transition-duration').value;
+    const autoplay = document.getElementById('autoplay').checked;
+    const showArrows = document.getElementById('show-arrows').checked;
+    const showPagination = document.getElementById('show-pagination').checked;
+
+    // Update Swiper configuration
+    swiper.params.speed = parseInt(transitionDuration, 10);
+    swiper.params.autoplay.enabled = autoplay;
+    swiper.params.navigation.enabled = showArrows;
+    swiper.params.pagination.enabled = showPagination;
+
+    // Update Swiper components visibility
+    document.querySelector('.swiper-button-next').style.display = showArrows ? 'block' : 'none';
+    document.querySelector('.swiper-button-prev').style.display = showArrows ? 'block' : 'none';
+    document.querySelector('.swiper-pagination').style.display = showPagination ? 'block' : 'none';
+
+    // Restart Swiper to apply changes
+    swiper.update();
+    if (autoplay) {
+        swiper.autoplay.start();
+    } else {
+        swiper.autoplay.stop();
+    }
+});
