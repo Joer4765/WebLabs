@@ -4,12 +4,19 @@ const difficultySelect = document.getElementById('difficulty');
 const newGameButton = document.getElementById('new-game');
 const startGameButton = document.getElementById('start-game');
 const timerDisplay = document.getElementById('timer');
-const scoreDisplay = document.getElementById('score');
 const playerModeSelect = document.getElementById('player-mode');
 const player1NameInput = document.getElementById('player1-name');
 const player2NameInput = document.getElementById('player2-name');
 const roundsSelect = document.getElementById('rounds');
 const player2NameInputDiv = document.getElementById('player2-name-input');
+const score1 = document.getElementById('score1');
+const score2 = document.getElementById('score2');
+const name1 = document.getElementById('name1');
+const name2 = document.getElementById('name2');
+const turn = document.getElementById('turn');
+const round = document.getElementById('round');
+const rounds = document.getElementById("rounds")
+const roundsLabel = document.getElementById('rounds-label');
 
 let gridSize = 4;
 let difficulty = 'easy';
@@ -20,19 +27,33 @@ let timer;
 let timeLeft;
 let time;
 let playerMode = 1;
-let player1Name = 'Player 1';
-let player2Name = 'Player 2';
+let player1Name = '';
+let player2Name = '';
 let currentRound = 1;
 let totalRounds = 1;
 let player1Score = 0;
 let player2Score = 0;
-let currentPlayer = 1;
+let currentPlayerID = 0;
+
 
 // Update player mode
 playerModeSelect.addEventListener('change', function() {
     playerMode = parseInt(this.value);
-    player2NameInputDiv.style.display = playerMode === 2 ? 'block' : 'none';
+    if (playerMode === 2) {
+        player2NameInputDiv.style.display = 'block';
+        name2.style.display = 'inline';
+        score2.style.display = 'inline-block';
+        rounds.style.display = 'inline-block';
+        roundsLabel.style.display = 'inline';
+    } else {
+        player2NameInputDiv.style.display = 'none';
+        name2.style.display = 'none';
+        score2.style.display = 'none';
+        rounds.style.display = 'none';
+        roundsLabel.style.display = 'none';
+    }
 });
+
 
 // Start a new game with updated settings
 function startGameWithSettings() {
@@ -42,17 +63,20 @@ function startGameWithSettings() {
     currentRound = 1;
     player1Score = 0;
     player2Score = 0;
-    currentPlayer = 1;
+    currentPlayerID = 0;
     startGame();
 }
 
 // Initialize game
 function initGame() {
+    timerDisplay.textContent = "Time: 00:00";
     gameBoard.innerHTML = '';
     cards = [];
     flippedCards = [];
     matchedPairs = 0;
-    scoreDisplay.textContent = 'Score: 0';
+
+    name1.textContent = player1Name;
+    name2.textContent = player2Name;
 
     // Set grid size
     gridSize = parseInt(gridSizeSelect.value);
@@ -69,7 +93,10 @@ function initGame() {
     cards.sort(() => 0.5 - Math.random());
 
     // Add cards to game board
-    cards.forEach(card => gameBoard.appendChild(card));
+    cards.forEach(card => gameBoard.append(card));
+
+    clearInterval(timer);
+
 }
 
 // Create a card element
@@ -80,7 +107,7 @@ function createCard(id) {
 
     const img = document.createElement('img');
     img.src = `images/Group ${id}.png`;
-    card.appendChild(img);
+    card.append(img);
 
     card.addEventListener('click', flipCard);
     return card;
@@ -105,73 +132,54 @@ function checkMatch() {
     const [card1, card2] = flippedCards;
 
     if (card1.dataset.id === card2.dataset.id) {
-        if (playerMode === 2) {
-            if (currentPlayer === 1) {
-                player1Score++;
-            } else {
-                player2Score++;
-            }
-            updateScoreDisplay();
+        if (currentPlayerID === 0) {
+            player1Score++;
+        } else if (currentPlayerID === 1) {
+            player2Score++;
         }
-
         matchedPairs++;
-        scoreDisplay.textContent = `Score: ${matchedPairs}`;
-        flippedCards = [];
+        updateScoreDisplay();
 
-        // if (matchedPairs === gridSize * gridSize / 2) {
-        //     clearInterval(timer);
-        //     alert(`You won! Time: ${formatTime(time - timeLeft)}`);
-        // }
         if (matchedPairs === gridSize * gridSize / 2) {
             clearInterval(timer);
-            endTurn();
+            endRound();
         }
+        flippedCards = [];
     } else {
         setTimeout(() => {
             card1.classList.remove('flipped');
             card2.classList.remove('flipped');
             flippedCards = [];
+            if (playerMode === 2) {
+                endTurn();
+            }
         }, 1000);
-        if (playerMode === 2) {
-            setTimeout(() => {
-                currentPlayer = currentPlayer === 1 ? 2 : 1;
-                updateScoreDisplay();
-                if (currentPlayer === 2) {
-                    alert(`${player2Name}'s turn!`);
-                }
-            }, 1000);
-        }
     }
+
+
 }
 
 // Start a new round
 function startRound() {
-    if (playerMode === 2) {
-        alert(`${currentPlayer === 1 ? player1Name : player2Name}'s turn!`);
-    }
+    round.textContent = `Round ${currentRound}`;
     initGame();
+    startTimer();
 }
 
-// End turn for current player
 function endTurn() {
-    alert(`${currentPlayer === 1 ? player1Name : player2Name} has finished their turn!`);
-    if (playerMode === 2) {
-        currentPlayer = currentPlayer === 1 ? 2 : 1;
-        if (currentPlayer === 1) {
-            endRound();
-        } else {
-            startRound();
-        }
-    } else {
-        endRound();
-    }
+    currentPlayerID = currentPlayerID === 1 ? 0 : 1;
+    startTurn();
+}
+
+function startTurn() {
+    turn.textContent = `${currentPlayerID ? player2Name : player1Name}`;
 }
 
 // End round
 function endRound() {
     if (currentRound < totalRounds) {
         currentRound++;
-        currentPlayer = 1;
+        currentPlayerID = 0;
         startRound();
     } else {
         endGame();
@@ -198,16 +206,39 @@ function endGame() {
 
 // Update score display
 function updateScoreDisplay() {
-    scoreDisplay.textContent = `Player 1: ${player1Score} - Player 2: ${player2Score}`;
+    score1.textContent = `${player1Score}`
+    score2.textContent = `${player2Score}`;
+
+}
+
+function startTimer() {
+    timeLeft = time;
+    // Start timer
+    clearInterval(timer);
+    timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `Time: ${formatTime(timeLeft)}`;
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            alert('Time is up! You lost.');
+            newGame();
+        }
+    }, 1000);
+}
+
+function newGame() {
+    resetScore();
+    initGame();
 }
 
 // Start a new game
 function startGame() {
-    initGame();
-    matchedPairs = 0;
-    scoreDisplay.textContent = 'Score: 0';
+    resetScore()
 
-    // Set difficulty and timer
+    matchedPairs = 0;
+
+    // Set difficulty
     difficulty = difficultySelect.value;
     switch (difficulty) {
         case 'easy':
@@ -221,19 +252,15 @@ function startGame() {
             break;
     }
 
-    timeLeft = time;
-    // Start timer
-    clearInterval(timer);
-    timer = setInterval(() => {
-        timeLeft--;
-        timerDisplay.textContent = `Time: ${formatTime(timeLeft)}`;
+    if (playerMode === 2) {
+        startTurn();
+        startRound();
+    }
+    else if (playerMode === 1) {
+        initGame();
+        startTimer();
+    }
 
-        if (timeLeft === 0) {
-            clearInterval(timer);
-            alert('Time is up! You lost.');
-            initGame();
-        }
-    }, 1000);
 }
 
 // Format time for display
@@ -243,9 +270,15 @@ function formatTime(seconds) {
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 }
 
+function resetScore() {
+    player1Score = 0;
+    player2Score = 0;
+    score1.textContent = player1Score;
+    score2.textContent = player2Score;
+}
+
 // Event listeners
-newGameButton.addEventListener('click', initGame);
-// startGameButton.addEventListener('click', startGame);
+newGameButton.addEventListener('click', newGame);
 startGameButton.addEventListener('click', startGameWithSettings);
 
 // Initialize game on page load

@@ -41,4 +41,34 @@ body {
   margin-top: 20px;
 }
 
+.label {
+  padding: 6px 6px 6px 6px;
+  background-color: #5bc0de;
+  border-radius: 7px;
+  width: 46px;
+  display: inline-block;
+  text-align: center;
+  font-size: 16px;
+}
+
+#turn {
+  color: red;
+}
+
+#score2 {
+  display: none;
+}
+
+#name2 {
+  display: none;
+}
+
+#rounds {
+  display: none;
+}
+
+#rounds-label {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */

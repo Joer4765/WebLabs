@@ -21,7 +21,7 @@
         <label for="player2-name">Player 2 Name:</label>
         <input type="text" id="player2-name" placeholder="Enter name">
     </div>
-    <label for="rounds">Rounds:</label>
+    <label for="rounds" id="rounds-label">Rounds:</label>
     <select id="rounds">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -45,11 +45,16 @@
     <button id="new-game">New Game</button>
     <button id="start-game">Start Game</button>
 </div>
+<h2 id="round"></h2>
+<span id="turn"></span>
 <div class="game-board"></div>
 <div class="game-info">
     <span id="timer">Time: 00:00</span>
-    <span id="score">Score: 0</span>
 </div>
+<span id="name1"></span>
+<span id="score1" class="label"></span>
+<span id="name2"></span>
+<span id="score2" class="label"></span>
 <script src="script.js"></script>
 </body>
 </html>
