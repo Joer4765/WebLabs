@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap");
-
 :root {
   --error-color: #dc3545;
   --success-color: #28a745;
@@ -13,11 +12,13 @@
   box-sizing: border-box;
 }
 
-
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   background-color: #f4f4f4;
+}
+
+#authorization-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -47,8 +48,6 @@ body {
 .form-field {
   margin-bottom: 5px;
   cursor: text;
-  //display: flex;
-  //flex-wrap: wrap;
 }
 
 .form-field label {
@@ -69,17 +68,12 @@ body {
   cursor: text;
 }
 
-//.form-field input:hover {
-//  cursor: text;
-//}
-
 .form-field label {
   width: 100%;
 }
 
 .form-field input:focus {
   outline: none;
-  //cursor: text;
 }
 
 .form-field.error input {
@@ -90,13 +84,10 @@ body {
   border-color: var(--success-color);
 }
 
-
 .form-field small {
   color: var(--error-color);
 }
 
-
-/* button */
 .btn {
   width: 100%;
   padding: 3%;
@@ -183,10 +174,13 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
 .tint {
   position: fixed;
   width: 100%;
@@ -195,3 +189,101 @@ body {
   background: rgba(0, 0, 0, 0.3);
   z-index: 999;
 }
+
+#main-page {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+#sorting-options {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#sort-by {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+}
+
+#user-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.user-card {
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.user-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.user-card h3 {
+  margin: 10px;
+  color: #333;
+}
+
+.user-card p {
+  margin: 5px 10px;
+  color: #666;
+  font-size: 14px;
+}
+
+#filter-options {
+  margin: 20px 10px;
+  text-align: center;
+}
+
+#filter-options input {
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+#user-actions button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#logout {
+  background-color: #28a745; /* Green */
+}
+
+#logout:hover {
+  background-color: #218838;
+}
+
+#delete-account {
+  background-color: #dc3545; /* Red */
+}
+
+#delete-account:hover {
+  background-color: #c82333;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -8,6 +8,11 @@ const confirmPasswordEl = document.querySelector('#confirm-password');
 const signupForm = document.querySelector('#signup');
 const loginForm = document.querySelector('#login');
 
+const logoutButton = document.getElementById('logout');
+const deleteAccountButton = document.getElementById('delete-account');
+const mainPage = document.getElementById('main-page');
+const container = document.querySelector('.container');
+
 const tabs = document.querySelectorAll(".tab-button");
 const forms = document.querySelectorAll(".form");
 
@@ -125,31 +130,26 @@ const isPasswordSecure = (password) => {
     return re.test(password);
 };
 
-const isRequired = value => value === '' ? false : true;
-const isBetween = (length, min, max) => length < min || length > max ? false : true;
+const isRequired = value => value !== '';
+const isBetween = (length, min, max) => !(length < min || length > max);
 
 
 const showError = (input, message) => {
-    // get the form-field element
     const formField = input.parentElement;
-    // add the error class
+
     formField.classList.remove('success');
     formField.classList.add('error');
 
-    // show the error message
     const error = formField.querySelector('small');
     error.textContent = message;
 };
 
 const showSuccess = (input) => {
-    // get the form-field element
     const formField = input.parentElement;
 
-    // remove the error class
     formField.classList.remove('error');
     formField.classList.add('success');
 
-    // hide the error message
     const error = formField.querySelector('small');
     error.textContent = '';
 }
@@ -186,11 +186,8 @@ function submitForm(data, form) {
 
 
 signupForm.addEventListener('submit', function (e) {
-    // prevent the form from submitting
     e.preventDefault();
 
-
-    // validate forms
     let isUsernameValid = checkUsername(signupUsernameEl),
         isEmailValid = checkEmail(),
         isPasswordValid = checkPassword(signupPasswordEl),
@@ -201,24 +198,19 @@ signupForm.addEventListener('submit', function (e) {
         isPasswordValid &&
         isConfirmPasswordValid;
 
-    // submit to the server if the form is valid
     if (isFormValid) {
         submitForm(new FormData(this), signupForm);
     }
 });
 
 loginForm.addEventListener('submit', function (e) {
-    // prevent the form from submitting
     e.preventDefault();
 
-
-    // validate forms
     let isUsernameValid = checkUsername(loginUsernameEl),
         isPasswordValid = checkPassword(loginPasswordEl);
 
     let isFormValid = isUsernameValid && isPasswordValid;
 
-    // submit to the server if the form is valid
     if (isFormValid) {
         submitForm(new FormData(this), loginForm);
     }
@@ -228,11 +220,9 @@ loginForm.addEventListener('submit', function (e) {
 const debounce = (fn, delay = 500) => {
     let timeoutId;
     return (...args) => {
-        // cancel the previous timer
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
-        // setup a new timer
         timeoutId = setTimeout(() => {
             fn.apply(null, args)
         }, delay);

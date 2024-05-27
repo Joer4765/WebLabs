@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <title>JavaScript Form Validation Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3E3XZ7RL7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-Q3E3XZ7RL7');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+</head>
+
+<body>
+<div id="loader" class="loader" style="display: none;"></div>
+<div id="tint" class="tint" style="display: none;"></div>
+
+<div id="authorization-page">
+    <div class="container">
+        <!-- Loader -->
+        <div class="tabs">
+            <button class="tab-button" id="signup-tab">Signup</button>
+            <button class="tab-button" id="login-tab">Login</button>
+        </div>
+
+        <form id="signup" class="form">
+            <h1>Sign Up</h1>
+            <div class="form-field">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" autocomplete="off" placeholder="Choose a username">
+                <small></small>
+            </div>
+
+            <div class="form-field">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" autocomplete="off" placeholder="Enter your email">
+                <small></small>
+            </div>
+
+            <div class="form-field password">
+                <label for="password">Password:</label>
+                <span class="password-toggle-icon">
+                <input type="password" name="password" id="password" autocomplete="off"
+                       placeholder="Enter a strong password">
+                <i class="fas fa-eye"></i>
+            </span>
+                <small></small>
+            </div>
+
+            <div class="form-field password">
+                <label for="confirm-password">Confirm Password:</label>
+                <span class="password-toggle-icon">
+                <input type="password" name="confirm-password" id="confirm-password" autocomplete="off"
+                       placeholder="Reenter your password">
+                <i class="fas fa-eye"></i>
+            </span>
+                <small></small>
+            </div>
+            <div class="form-field">
+                <input type="submit" value="Sign Up" class="btn">
+            </div>
+        </form>
+
+        <form id="login" class="form">
+            <h1></h1>
+            <div class="form-field">
+                <label for="login-username">Username:</label>
+                <input type="text" name="username" id="login-username" autocomplete="off" placeholder="Choose a username">
+                <small></small>
+            </div>
+
+            <div class="form-field password">
+                <label for="login-password">Password:</label>
+                <span class="password-toggle-icon">
+                <input type="password" name="password" id="login-password" autocomplete="off"
+                       placeholder="Enter your password">
+                <i class="fas fa-eye"></i>
+            </span>
+                <small></small>
+            </div>
+            <div class="form-field">
+                <input type="submit" value="Login" class="btn">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="main-page" style="display:none;">
+    <div id="user-actions">
+        <button id="logout">Logout</button>
+        <button id="delete-account">Delete Account</button>
+    </div>
+    <div id="app-content">
+        <div id="sorting-options">
+            <select id="sort-by">
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="age-asc">Age (Ascending)</option>
+                <option value="age-desc">Age (Descending)</option>
+                <option value="date-asc">Registration Date (Oldest First)</option>
+                <option value="date-desc">Registration Date (Newest First)</option>
+            </select>
+        </div>
+        <div id="filter-options">
+            <label for="filter-name"></label><input type="text" id="filter-name" placeholder="Filter by name...">
+            <label for="filter-age"></label><input type="number" id="filter-age" placeholder="Filter by age...">
+            <label for="filter-location"></label><input type="text" id="filter-location" placeholder="Filter by location...">
+            <label for="filter-email"></label><input type="email" id="filter-email" placeholder="Filter by email...">
+        </div>
+        <div id="user-cards-container"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+
+</html>
